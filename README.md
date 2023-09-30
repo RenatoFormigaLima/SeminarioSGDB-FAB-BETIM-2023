@@ -16,7 +16,7 @@ Esse MVP foi desenvolvido utilizando o framework Django.
 - [ ] Front-end
 
 - Modelagem do banco:
-
+![PdAModeloConceitual2](https://github.com/RenatoFormigaLima/SeminarioSGDB-FAB-BETIM-2023/assets/66376336/27f1079f-3ba5-4fa2-9215-26caefec225a)
 - requisitos desse projeto:
   
 ||Versão|
