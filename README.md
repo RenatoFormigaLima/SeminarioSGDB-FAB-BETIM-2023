@@ -24,3 +24,6 @@ Esse MVP foi desenvolvido utilizando o framework Django.
 |Python| 3.10.0|
 |Iris| 522|
 |Django| 4.2.5|
+
+Nota:
+*É importante que seja compilado os scripts, pois garantem uma implementação padronizada*
