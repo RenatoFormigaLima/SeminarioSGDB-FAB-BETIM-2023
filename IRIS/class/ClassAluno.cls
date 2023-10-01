@@ -5,29 +5,33 @@ Property Disciplina As ClassDisciplina;
 
 Property name As %String;
 
-// Query QueryByDisciplinaName(pDiciplina As %String) As %SQLQuery [ SqlProc ]
+Query QueryByDisciplinaName(pDiciplina As %String) As %SQLQuery [ SqlProc ]
+{
+    SELECT ClassAluno.name As aluno, ClassDisciplina.name As materia
+    FROM Faculdade.ClassAluno, Faculdade.ClassDisciplina
+    WHERE ClassDisciplina.name = :pDiciplina
+}
 
-// {
+Query ViewDisciplina() As %SQLQuery [ SqlView ]
+{
+    SELECT ClassAluno.name As aluno, ClassDisciplina.name As materia
+    FROM Faculdade.ClassAluno, Faculdade.ClassDisciplina
+    WHERE ClassDisciplina.ID = ClassAluno.Disciplina
+}
 
-//         SELECT Disciplina.name, Disciplina.Professor.name
+Query ViewAllDisciplina() As %SQLQuery [ SqlView ]
+{
+    SELECT ClassAluno.name As aluno, ClassDisciplina.name As materia, Classprofessor.Name As professor
+    from Faculdade.ClassAluno, Faculdade.ClassDisciplina, Faculdade.Classprofessor
+    WHERE ClassAluno.Disciplina = ClassDisciplina.ID
+}
 
-//         FROM Faculdade.ClassAluno
-
-//         WHERE Disciplina.name = pDiciplina
-
-// }
-
-// Query QueryByDisciplinaId(pDiciplina As %Integer) As %SQLQuery [ SqlProc ]
-
-// {
-
-//         SELECT Disciplina.id, Disciplina.name, Disciplina.Professor.name, name
-
-//         FROM Disciplina
-
-//         WHERE Disciplina.id = pDiciplina
-
-// }
+Query QueryDisciplinaByAluno(pNome As %String) As %SQLQuery [ SqlProc ]
+{
+    SELECT ClassAluno.name As aluno, ClassDisciplina.name As materia
+    FROM Faculdade.ClassAluno, Faculdade.ClassDisciplina
+    WHERE ClassAluno.name = :pNome
+}
 
 Storage Default
 {

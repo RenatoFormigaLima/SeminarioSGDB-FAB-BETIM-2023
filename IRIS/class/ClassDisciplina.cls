@@ -5,17 +5,27 @@ Property name As %String;
 
 Property Professor As Classprofessor;
 
-// Query QueryByProfessor(profName As %String) As %SQLQuery [ SqlProc ]
+// without join -> bad way
 
-// {
+Query QueryByProfessor(profName As %String) As %SQLQuery [ SqlProc ]
+{
+    SELECT ClassDisciplina.ID,ClassDisciplina.name, Classprofessor.Name
+    FROM Faculdade.ClassDisciplina, Faculdade.Classprofessor
+    WHERE Classprofessor.Name = :profName
+}
 
-//         SELECT Professor.Name, name
+Query QueryByProfessorID(profID As %Integer) As %SQLQuery [ SqlProc ]
+{
+    SELECT ClassDisciplina.ID,ClassDisciplina.name, Classprofessor.Name
+    FROM Faculdade.ClassDisciplina, Faculdade.Classprofessor
+    WHERE Classprofessor.ID = :profID
+}
 
-//         FROM ClassDisciplina
-
-//         WHERE Professor.Name = :profName
-
-// }
+Query Disciplinas() As %SQLQuery [ SqlView ]
+{
+    SELECT *
+    FROM Faculdade.ClassDisciplina
+}
 
 /// Description
 Storage Default

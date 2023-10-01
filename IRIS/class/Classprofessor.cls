@@ -4,6 +4,11 @@ Class Faculdade.Classprofessor Extends %Persistent
 /// Description
 Property Name As %String;
 
+Query professores() As %SQLQuery [ SqlView ]
+{
+    SELECT * FROM Faculdade.Classprofessor
+}
+
 Storage Default
 {
 <Data name="ClassprofessorDefaultData">
