@@ -1,25 +1,33 @@
 Class Faculdade.ClassAluno Extends %Persistent
 {
 
-Property id As %Integer;
-
-Property Diciplina As ClassDisciplina;
+Property Disciplina As ClassDisciplina;
 
 Property name As %String;
 
-Query QueryByDisciplinaName(pDiciplina As %String) As %SQLQuery [ SqlProc ]
-{
-        SELECT Diciplina.name, Diciplina.Professor.name, name
-        FROM Diciplina
-        WHERE Diciplina.name = pDiciplina
-}
+// Query QueryByDisciplinaName(pDiciplina As %String) As %SQLQuery [ SqlProc ]
 
-Query QueryByDisciplinaId(pDiciplina As %Integer) As %SQLQuery [ SqlProc ]
-{
-        SELECT Diciplina.id, Diciplina.name, Diciplina.Professor.name, name
-        FROM Diciplina
-        WHERE Diciplina.id = pDiciplina
-}
+// {
+
+//         SELECT Disciplina.name, Disciplina.Professor.name
+
+//         FROM Faculdade.ClassAluno
+
+//         WHERE Disciplina.name = pDiciplina
+
+// }
+
+// Query QueryByDisciplinaId(pDiciplina As %Integer) As %SQLQuery [ SqlProc ]
+
+// {
+
+//         SELECT Disciplina.id, Disciplina.name, Disciplina.Professor.name, name
+
+//         FROM Disciplina
+
+//         WHERE Disciplina.id = pDiciplina
+
+// }
 
 Storage Default
 {
@@ -31,7 +39,7 @@ Storage Default
 <Value>id</Value>
 </Value>
 <Value name="3">
-<Value>Diciplina</Value>
+<Value>Disciplina</Value>
 </Value>
 <Value name="4">
 <Value>name</Value>

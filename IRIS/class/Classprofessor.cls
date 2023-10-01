@@ -2,8 +2,6 @@ Class Faculdade.Classprofessor Extends %Persistent
 {
 
 /// Description
-Property id As %Integer;
-
 Property Name As %String;
 
 Storage Default

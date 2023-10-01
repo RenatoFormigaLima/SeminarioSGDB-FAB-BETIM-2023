@@ -1,18 +1,23 @@
 Class Faculdade.ClassDisciplina Extends %Persistent
 {
 
-Property id As %Integer;
+Property name As %String;
 
 Property Professor As Classprofessor;
 
-/// Description
-Query QueryByProfessor(profName As %String) As %SQLQuery [ SqlProc ]
-{
-        SELECT id, Professor.name
-        FROM ClassDisciplina
-        WHERE name = profName
-}
+// Query QueryByProfessor(profName As %String) As %SQLQuery [ SqlProc ]
 
+// {
+
+//         SELECT Professor.Name, name
+
+//         FROM ClassDisciplina
+
+//         WHERE Professor.Name = :profName
+
+// }
+
+/// Description
 Storage Default
 {
 <Data name="ClassDisciplinaDefaultData">
@@ -25,9 +30,14 @@ Storage Default
 <Value name="3">
 <Value>Professor</Value>
 </Value>
+<Value name="4">
+<Value>name</Value>
+</Value>
 </Data>
 <DataLocation>^Faculdade.ClassDisciplinaD</DataLocation>
 <DefaultData>ClassDisciplinaDefaultData</DefaultData>
+<Description>
+<![CDATA[Description]]></Description>
 <IdLocation>^Faculdade.ClassDisciplinaD</IdLocation>
 <IndexLocation>^Faculdade.ClassDisciplinaI</IndexLocation>
 <StreamLocation>^Faculdade.ClassDisciplinaS</StreamLocation>
