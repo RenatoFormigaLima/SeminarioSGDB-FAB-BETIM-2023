@@ -1,7 +1,7 @@
 Class Faculdade.ClassDisciplina Extends %Persistent
 {
 
-Property name As %String;
+Property name As %String [ Required ];
 
 Property Professor As Classprofessor;
 

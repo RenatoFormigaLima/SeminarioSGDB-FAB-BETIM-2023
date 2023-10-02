@@ -3,7 +3,7 @@ Class Faculdade.ClassAluno Extends %Persistent
 
 Property Disciplina As ClassDisciplina;
 
-Property name As %String;
+Property name As %String [ Required ];
 
 Query QueryByDisciplinaName(pDiciplina As %String) As %SQLQuery [ SqlProc ]
 {

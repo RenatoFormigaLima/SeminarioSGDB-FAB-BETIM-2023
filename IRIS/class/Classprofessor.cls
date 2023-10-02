@@ -2,7 +2,7 @@ Class Faculdade.Classprofessor Extends %Persistent
 {
 
 /// Description
-Property Name As %String;
+Property Name As %String [ Required ];
 
 Query professores() As %SQLQuery [ SqlView ]
 {
