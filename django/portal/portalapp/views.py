@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse
+from django.views.decorators.http import require_http_methods
 import json
-import models
+from . import models
 def login(request):
     return render(request,'login.html')
 
@@ -11,7 +12,7 @@ def home(request):
 
 
 
-
+@require_http_methods(["POST"])
 def create(request):
     req= json.loads(request.body)
     aluno =models.Aluno(nome=req['nome'],id_disciplina=req["id_disciplina"])
