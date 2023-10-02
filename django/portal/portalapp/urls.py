@@ -6,8 +6,8 @@ urlpatterns = [
     path('logged',views.home,name="Home"),
     path('create',views.create,name="Create"),
     path('list',views.listall,name="ListAll"),
-    path('search/{name}',views.search,name="Search"),
-    path('alter/{name}',views.alter,name="Alter"),
-    path('delete/{name}',views.delete,name="Delete")
+    path('search/<str:nome>',views.search,name="Search"),
+    path('alter/<str:nome>',views.alter,name="Alter"),
+    path('delete/<str:nome>',views.delete,name="Delete")
 
 ]
