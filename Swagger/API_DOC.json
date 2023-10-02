@@ -14,7 +14,7 @@
     }
   },
   "host": "localhost:52773",
-  "basePath": "/api/mgmnt/v2/USER/FaculdadeAPI",
+  "basePath": "/api/mgmnt/v2/USER/Faculdade",
   "tags": [
     {
       "name": "aluno",

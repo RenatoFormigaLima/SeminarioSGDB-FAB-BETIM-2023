@@ -10,7 +10,7 @@ info:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 host: "localhost:52773"
-basePath: "/api/mgmnt/v2/USER/FaculdadeAPI"
+basePath: "/api/mgmnt/v2/USER/Faculdade"
 tags:
 - name: "aluno"
   description: "Todas as operações de aluno"
