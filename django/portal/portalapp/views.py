@@ -14,4 +14,22 @@ def home(request):
 
 def create(request):
     req= json.loads(request.body)
-    
+
+
+def list(request):
+    pass
+
+
+
+def search(request):
+    pass
+
+
+
+def alter(request):
+    pass
+
+
+
+def delete(request):
+    pass
