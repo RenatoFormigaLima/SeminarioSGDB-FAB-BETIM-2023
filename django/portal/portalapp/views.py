@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse
 import json
-
+import models
 def login(request):
     return render(request,'login.html')
 
@@ -14,10 +14,15 @@ def home(request):
 
 def create(request):
     req= json.loads(request.body)
+    aluno =models.Aluno(nome=req['nome'],id_disciplina=req["id_disciplina"])
+    aluno.save()
+    return HttpResponse("aluno salvo")
+    
 
 
 def list(request):
-    pass
+    query = models.Aluno.objects.all()
+    return HttpResponse(query)
 
 
 
