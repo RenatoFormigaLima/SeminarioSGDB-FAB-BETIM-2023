@@ -24,21 +24,26 @@ def create(request):
 
 
 def list(request):
-    query = request.GET
-    return HttpResponse(query)
+    r= requests.get('http://localhost:5000/get')
+    return HttpResponse(r)
 
 
 
-def search(request):
-    query = request.GET
-    return HttpResponse(query)
+def search(request,nome):
+    req = json.loads(request.body)
+    r= requests.get('http://localhost:5000/get/'+nome)
+    return HttpResponse(r)
 
 
 
-def alter(request):
-    pass
+def alter(request,nome):
+    req = json.loads(request.body)
+    r= requests.put('http://localhost:5000/alter/'+nome,json = req)
+    return HttpResponse(r)
 
 
 
-def delete(request):
-    pass
+def delete(request,nome):
+    req = json.loads(request.body)
+    r= requests.delete('http://localhost:5000/delete/'+nome)
+    return HttpResponse(r)
