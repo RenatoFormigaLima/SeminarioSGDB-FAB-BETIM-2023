@@ -427,7 +427,7 @@ XData OpenAPI [ MimeType = application/json ]
         ]
       }
     },
-    "/disciplina/{idDisciplina}":{
+    "/disciplina/id/{idDisciplina}":{
       "get":{
         "tags":[
           "disciplina"

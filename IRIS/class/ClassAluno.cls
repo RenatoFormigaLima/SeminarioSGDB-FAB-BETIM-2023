@@ -19,18 +19,25 @@ Query ViewDisciplina() As %SQLQuery [ SqlView ]
     WHERE ClassDisciplina.ID = ClassAluno.Disciplina
 }
 
-Query ViewAllDisciplina() As %SQLQuery [ SqlView ]
+Query ViewAllDisciplina() As %SQLQuery [ SqlProc ]
 {
-    SELECT ClassAluno.name As aluno, ClassDisciplina.name As materia, Classprofessor.Name As professor
+    SELECT ClassAluno.ID As ID, ClassAluno.name As aluno, ClassDisciplina.name As materia, Classprofessor.Name As professor
     from Faculdade.ClassAluno, Faculdade.ClassDisciplina, Faculdade.Classprofessor
     WHERE ClassAluno.Disciplina = ClassDisciplina.ID
 }
 
 Query QueryDisciplinaByAluno(pNome As %String) As %SQLQuery [ SqlProc ]
 {
-    SELECT ClassAluno.name As aluno, ClassDisciplina.name As materia
+    SELECT ClassAluno.ID As id, ClassAluno.name As aluno, ClassDisciplina.name As materia
     FROM Faculdade.ClassAluno, Faculdade.ClassDisciplina
     WHERE ClassAluno.name = :pNome
+}
+
+Query QueryDisciplinaById(pId As %Integer) As %SQLQuery [ SqlProc ]
+{
+    SELECT ClassAluno.ID As id, ClassAluno.name As aluno, ClassDisciplina.name As materia
+    FROM Faculdade.ClassAluno, Faculdade.ClassDisciplina
+    WHERE ClassAluno.ID = :pId
 }
 
 Storage Default

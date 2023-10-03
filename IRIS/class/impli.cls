@@ -34,10 +34,28 @@ ClassMethod UpdateAluno(body As %DynamicObject) As %DynamicObject
 ///     idAluno, O id precisa ser especificado<br/>
 ClassMethod findAlunoById(idAluno As %Integer) As %DynamicObject
 {
-    //(Place business logic here)
-    //Do ..%SetStatusCode(<HTTP_status_code>)
-    //Do ..%SetHeader(<name>,<value>)
-    //Quit (Place response here) ; response may be a string, stream or dynamic object
+    do ..%SetHeader("Content-Type", "application/json")
+
+    set statement = ##class(%SQL.Statement).%New()
+    set status = statement.%PrepareClassQuery("Faculdade.ClassAluno","QueryDisciplinaById")
+    set resp = ##class(%DynamicObject).%New()
+    if $$$ISERR(status)
+    {
+        do ..%SetHeader("Content-Type", "application/json")
+        do ..%SetStatusCode("500")
+        Quit resp
+    }
+    set result = statement.%Execute(idAluno)
+    if result.%SQLCode >= 0{
+        set i = 0
+        while result.%Next(){
+            do resp.%Set("aluno"_"_"_i, result.%Get("aluno"))
+            do resp.%Set("materia"_"_"_i, result.%Get("materia"))
+            set i = i + 1
+        }
+    }
+    do ..%SetStatusCode("200")
+    Quit resp
 }
 
 /// Pega o aluno pelo nome<br/>
@@ -45,10 +63,28 @@ ClassMethod findAlunoById(idAluno As %Integer) As %DynamicObject
 ///     NomeAluno, O nome precisa ser especificado<br/>
 ClassMethod findAlunoByName(NomeAluno As %String) As %DynamicObject
 {
-    //(Place business logic here)
-    //Do ..%SetStatusCode(<HTTP_status_code>)
-    //Do ..%SetHeader(<name>,<value>)
-    //Quit (Place response here) ; response may be a string, stream or dynamic object
+    do ..%SetHeader("Content-Type", "application/json")
+
+    set statement = ##class(%SQL.Statement).%New()
+    set status = statement.%PrepareClassQuery("Faculdade.ClassAluno","QueryDisciplinaByAluno")
+    set resp = ##class(%DynamicObject).%New()
+    if $$$ISERR(status)
+    {
+        do ..%SetHeader("Content-Type", "application/json")
+        do ..%SetStatusCode("500")
+        Quit resp
+    }
+    set result = statement.%Execute(NomeAluno)
+    if result.%SQLCode >= 0{
+        set i = 0
+        while result.%Next(){
+            do resp.%Set("aluno"_"_"_i, result.%Get("aluno"))
+            do resp.%Set("materia"_"_"_i, result.%Get("materia"))
+            set i = i + 1
+        }
+    }
+    do ..%SetStatusCode("200")
+    Quit resp
 }
 
 /// Adiciona um novo aluno<br/>
@@ -78,10 +114,26 @@ ClassMethod UpdateProfessor(body As %DynamicObject) As %DynamicObject
 ///     NomeProfessor, O nome precisa ser especificado<br/>
 ClassMethod findAProfessorByName(NomeProfessor As %String) As %DynamicObject
 {
-    //(Place business logic here)
-    //Do ..%SetStatusCode(<HTTP_status_code>)
-    //Do ..%SetHeader(<name>,<value>)
-    //Quit (Place response here) ; response may be a string, stream or dynamic object
+    do ..%SetHeader("Content-Type", "application/json")
+
+    set statement = ##class(%SQL.Statement).%New()
+    set status = statement.%PrepareClassQuery("Faculdade.Classprofessor","QueryProfessorByName")
+    set resp = ##class(%DynamicObject).%New()
+    if $$$ISERR(status)
+    {
+        do ..%SetHeader("Content-Type", "application/json")
+        do ..%SetStatusCode("500")
+        Quit resp
+    }
+    set result = statement.%Execute(NomeProfessor)
+    if result.%SQLCode >= 0{
+        while result.%Next(){
+            do resp.%Set("ID", result.%Get("ID"))
+            do resp.%Set("name", result.%Get("Name"))
+        }
+    }
+    do ..%SetStatusCode("200")
+    Quit resp
 }
 
 /// Pega o professor pelo id<br/>
@@ -89,10 +141,25 @@ ClassMethod findAProfessorByName(NomeProfessor As %String) As %DynamicObject
 ///     idProfessor, O nome precisa ser especificado<br/>
 ClassMethod findAProfessorById(idProfessor As %Integer) As %DynamicObject
 {
-    //(Place business logic here)
-    //Do ..%SetStatusCode(<HTTP_status_code>)
-    //Do ..%SetHeader(<name>,<value>)
-    //Quit (Place response here) ; response may be a string, stream or dynamic object
+    do ..%SetHeader("Content-Type", "application/json")
+
+    set statement = ##class(%SQL.Statement).%New()
+    set status = statement.%PrepareClassQuery("Faculdade.Classprofessor","QueryProfessorById")
+    set resp = ##class(%DynamicObject).%New()
+    if $$$ISERR(status)
+    {
+        do ..%SetHeader("Content-Type", "application/json")
+        do ..%SetStatusCode("500")
+        Quit resp
+    }
+    set result = statement.%Execute(idProfessor)
+    if result.%SQLCode >= 0{
+        while result.%Next(){
+            do resp.%Set("name", result.%Get("Name"))
+        }
+    }
+    do ..%SetStatusCode("200")
+    Quit resp
 }
 
 /// Adiciona um novo aluno<br/>
@@ -122,28 +189,77 @@ ClassMethod UpdateDisciplina(body As %DynamicObject) As %DynamicObject
 ///     idDisciplina, O nome precisa ser especificado<br/>
 ClassMethod findDisciplinaById(idDisciplina As %Integer) As %DynamicObject
 {
-    //(Place business logic here)
-    //Do ..%SetStatusCode(<HTTP_status_code>)
-    //Do ..%SetHeader(<name>,<value>)
-    //Quit (Place response here) ; response may be a string, stream or dynamic object
+    do ..%SetHeader("Content-Type", "application/json")
+
+    set statement = ##class(%SQL.Statement).%New()
+    set status = statement.%PrepareClassQuery("Faculdade.ClassDisciplina","QueryByID")
+    set resp = ##class(%DynamicObject).%New()
+    if $$$ISERR(status)
+    {
+        do ..%SetHeader("Content-Type", "application/json")
+        do ..%SetStatusCode("500")
+        Quit resp
+    }
+    set result = statement.%Execute(idDisciplina)
+    if result.%SQLCode >= 0{
+        while result.%Next(){
+            do resp.%Set("disciplina", result.%Get("disciplina"))
+            do resp.%Set("professor", result.%Get("professor"))
+        }
+    }
+    do ..%SetStatusCode("200")
+    Quit resp
 }
 
 /// Pega todas as disciplinas
 ClassMethod findAllDisciplinas() As %DynamicObject
 {
-    //(Place business logic here)
-    //Do ..%SetStatusCode(<HTTP_status_code>)
-    //Do ..%SetHeader(<name>,<value>)
-    //Quit (Place response here) ; response  may be a string, stream or dynamic object
+    do ..%SetHeader("Content-Type", "application/json")
+
+    set statement = ##class(%SQL.Statement).%New()
+    set status = statement.%PrepareClassQuery("Faculdade.ClassDisciplina","AllDisciplinas")
+    set resp = ##class(%DynamicObject).%New()
+    if $$$ISERR(status)
+    {
+        do ..%SetHeader("Content-Type", "application/json")
+        do ..%SetStatusCode("500")
+        Quit resp
+    }
+    set result = statement.%Execute()
+    if result.%SQLCode >= 0{
+        while result.%Next(){
+            do resp.%Set("disciplina"_result.%Get("id"), result.%Get("disciplina"))
+            do resp.%Set("professor"_result.%Get("id"), result.%Get("professor"))
+        }
+    }
+    do ..%SetStatusCode("200")
+    Quit resp
 }
 
 /// Pega todos os alunos
 ClassMethod findAllAlunos() As %DynamicObject
 {
-    //(Place business logic here)
-    //Do ..%SetStatusCode(<HTTP_status_code>)
-    //Do ..%SetHeader(<name>,<value>)
-    //Quit (Place response here) ; response may be a string, stream or dynamic object
+    do ..%SetHeader("Content-Type", "application/json")
+
+    set statement = ##class(%SQL.Statement).%New()
+    set status = statement.%PrepareClassQuery("Faculdade.ClassAluno","ViewAllDisciplina")
+    set resp = ##class(%DynamicObject).%New()
+    if $$$ISERR(status)
+    {
+        do ..%SetHeader("Content-Type", "application/json")
+        do ..%SetStatusCode("500")
+        Quit resp
+    }
+    set result = statement.%Execute()
+    if result.%SQLCode >= 0{
+        while result.%Next(){
+            do resp.%Set("aluno"_result.%Get("ID"), result.%Get("aluno"))
+            do resp.%Set("materia"_result.%Get("ID"), result.%Get("materia"))
+            do resp.%Set("professor"_result.%Get("ID"), result.%Get("professor"))
+        }
+    }
+    do ..%SetStatusCode("200")
+    Quit resp
 }
 
 /// Pega todos os professores
@@ -168,7 +284,6 @@ ClassMethod findAllProfessores() As %DynamicObject
         }
     }
     do ..%SetStatusCode("200")
-    do ..%SetHeader("Content-Type", "application/json")
     Quit resp
 }
 

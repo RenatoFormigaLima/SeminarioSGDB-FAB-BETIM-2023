@@ -9,6 +9,16 @@ Query professores() As %SQLQuery [ SqlProc ]
     SELECT * FROM Faculdade.Classprofessor
 }
 
+Query QueryProfessorById(pId As %Integer) As %SQLQuery [ SqlProc ]
+{
+    SELECT * FROM Faculdade.Classprofessor WHERE Classprofessor.ID = :pId
+}
+
+Query QueryProfessorByName(pName As %String) As %SQLQuery [ SqlProc ]
+{
+    SELECT * FROM Faculdade.Classprofessor WHERE Classprofessor.Name = :pName
+}
+
 Storage Default
 {
 <Data name="ClassprofessorDefaultData">

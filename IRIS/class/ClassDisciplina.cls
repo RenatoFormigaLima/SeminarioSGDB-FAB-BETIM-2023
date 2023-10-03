@@ -21,10 +21,24 @@ Query QueryByProfessorID(profID As %Integer) As %SQLQuery [ SqlProc ]
     WHERE Classprofessor.ID = :profID
 }
 
+Query QueryByID(pDisciplinaID As %Integer) As %SQLQuery [ SqlProc ]
+{
+    SELECT ClassDisciplina.ID As id, ClassDisciplina.name As disciplina, Classprofessor.Name As professor
+    FROM Faculdade.ClassDisciplina, Faculdade.Classprofessor
+    WHERE ClassDisciplina.ID = :pDisciplinaID AND ClassDisciplina.professor = Classprofessor.ID
+}
+
 Query Disciplinas() As %SQLQuery [ SqlView ]
 {
     SELECT *
     FROM Faculdade.ClassDisciplina
+}
+
+Query AllDisciplinas() As %SQLQuery [ SqlProc ]
+{
+    SELECT ClassDisciplina.ID As id, ClassDisciplina.name As disciplina, Classprofessor.Name As professor
+    FROM Faculdade.ClassDisciplina, Faculdade.Classprofessor
+    WHERE ClassDisciplina.Professor = Classprofessor.ID
 }
 
 /// Description
