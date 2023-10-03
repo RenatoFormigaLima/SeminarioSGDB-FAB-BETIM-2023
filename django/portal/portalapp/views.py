@@ -15,7 +15,7 @@ def home(request):
 
 
 
-@require_http_methods(["POST","GET"])
+
 def create(request):
     req = json.loads(request.body)
     r= requests.post('http://localhost:5000/create',json = req)
