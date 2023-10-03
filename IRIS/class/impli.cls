@@ -31,7 +31,6 @@ ClassMethod addAluno(body As %DynamicObject) As %DynamicObject
 ///     body, Objeto aluno precisa ser atualizado no portal<br/>
 ClassMethod UpdateAluno(body As %DynamicObject) As %DynamicObject
 {
-    
     set idAluno = body.%Get("ID")
     set novoAlunoNome = body.%Get("name")
     set novoAlunoDisciplina = body.%Get("Disciplina")
@@ -111,10 +110,15 @@ ClassMethod findAlunoByName(NomeAluno As %String) As %DynamicObject
 ///     body, Objeto aluno precisa ser adicionado no portal<br/>
 ClassMethod addProfessor(body As %DynamicObject) As %DynamicObject
 {
-    //(Place business logic here)
-    //Do ..%SetStatusCode(<HTTP_status_code>)
-    //Do ..%SetHeader(<name>,<value>)
-    //Quit (Place response here) ; response may be a string, stream or dynamic object
+    set auxA = body.%Get("Name")
+
+    set novoProfessor = ##Class(Classprofessor).%New()
+    set novoProfessor.Name = auxA
+    do novoProfessor.%Save()
+
+    do ..%SetHeader("Content-Type", "application/json")
+    do ..%SetStatusCode("200")
+    Quit {"Message": "Sucesso"}
 }
 
 /// Dá um update em profesor<br/>
@@ -122,10 +126,16 @@ ClassMethod addProfessor(body As %DynamicObject) As %DynamicObject
 ///     body, Objeto aluno precisa ser atualizado no portal<br/>
 ClassMethod UpdateProfessor(body As %DynamicObject) As %DynamicObject
 {
-    //(Place business logic here)
-    //Do ..%SetStatusCode(<HTTP_status_code>)
-    //Do ..%SetHeader(<name>,<value>)
-    //Quit (Place response here) ; response may be a string, stream or dynamic object
+    set idProf = body.%Get("ID")
+    set novoProfName = body.%Get("Name")
+
+    set buscaAluno = ##Class(Classprofessor).%OpenId(idProf)
+    set buscaAluno.Name = novoProfName
+    do buscaAluno.%Save()
+
+    do ..%SetHeader("Content-Type", "application/json")
+    do ..%SetStatusCode("200")
+    Quit {"Message": "Sucesso"}
 }
 
 /// Pega o professor pelo nome<br/>
