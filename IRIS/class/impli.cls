@@ -129,9 +129,9 @@ ClassMethod UpdateProfessor(body As %DynamicObject) As %DynamicObject
     set idProf = body.%Get("ID")
     set novoProfName = body.%Get("Name")
 
-    set buscaAluno = ##Class(Classprofessor).%OpenId(idProf)
-    set buscaAluno.Name = novoProfName
-    do buscaAluno.%Save()
+    set buscaDisciplina = ##Class(Classprofessor).%OpenId(idProf)
+    set buscaDisciplina.Name = novoProfName
+    do buscaDisciplina.%Save()
 
     do ..%SetHeader("Content-Type", "application/json")
     do ..%SetStatusCode("200")
@@ -196,10 +196,18 @@ ClassMethod findAProfessorById(idProfessor As %Integer) As %DynamicObject
 ///     body, Objeto aluno precisa ser adicionado no portal<br/>
 ClassMethod addDisciplina(body As %DynamicObject) As %DynamicObject
 {
-    //(Place business logic here)
-    //Do ..%SetStatusCode(<HTTP_status_code>)
-    //Do ..%SetHeader(<name>,<value>)
-    //Quit (Place response here) ; response may be a string, stream or dynamic object
+    set auxN = body.%Get("name")
+    set auxP = body.%Get("Professor")
+
+    set buscaProfessor = ##Class(Classprofessor).%OpenId(auxP)
+    set novoDisciplina = ##Class(ClassDisciplina).%New()
+    set novoDisciplina.name = auxN
+    set novoDisciplina.Professor = buscaProfessor
+    do novoDisciplina.%Save()
+
+    do ..%SetHeader("Content-Type", "application/json")
+    do ..%SetStatusCode("200")
+    Quit {"Message": "Sucesso"}
 }
 
 /// Dá um update em aluno<br/>
@@ -207,10 +215,20 @@ ClassMethod addDisciplina(body As %DynamicObject) As %DynamicObject
 ///     body, Objeto aluno precisa ser atualizado no portal<br/>
 ClassMethod UpdateDisciplina(body As %DynamicObject) As %DynamicObject
 {
-    //(Place business logic here)
-    //Do ..%SetStatusCode(<HTTP_status_code>)
-    //Do ..%SetHeader(<name>,<value>)
-    //Quit (Place response here) ; response may be a string, stream or dynamic object
+    set idDisciplina = body.%Get("ID")
+    set novoDisciplinaName = body.%Get("name")
+    set idProf = body.%Get("Professor")
+
+    set buscaDisciplina= ##Class(ClassDisciplina).%OpenId(idDisciplina)
+    set buscaProfessor = ##Class(Classprofessor).%OpenId(idProf)
+
+    set buscaDisciplina.name = novoDisciplinaName
+    set buscaDisciplina.Professor = buscaProfessor
+    do buscaDisciplina.%Save()
+
+    do ..%SetHeader("Content-Type", "application/json")
+    do ..%SetStatusCode("200")
+    Quit {"Message": "Sucesso"}
 }
 
 /// Pega a disciplina pelo id<br/>
