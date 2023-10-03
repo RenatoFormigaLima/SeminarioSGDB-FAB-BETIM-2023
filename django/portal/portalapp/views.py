@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse
 from django.views.decorators.http import require_http_methods
 import json
 from . import models
+import requests
 def login(request):
     return render(request,'login.html')
 
@@ -12,23 +13,25 @@ def home(request):
 
 
 
-@require_http_methods(["POST"])
+
+
+@require_http_methods(["POST","GET"])
 def create(request):
-    req= json.loads(request.body)
-    aluno =models.Aluno(nome=req['nome'],id_disciplina=req["id_disciplina"])
-    aluno.save()
-    return HttpResponse("aluno salvo")
-    
+    req = json.loads(request.body)
+    r= requests.post('http://localhost:5000/create',json = req)
+    return HttpResponse(r)
+                
 
 
 def list(request):
-    query = models.Aluno.objects.all()
+    query = request.GET
     return HttpResponse(query)
 
 
 
 def search(request):
-    pass
+    query = request.GET
+    return HttpResponse(query)
 
 
 
