@@ -5,6 +5,11 @@ Property Disciplina As ClassDisciplina;
 
 Property name As %String [ Required ];
 
+Method criaAluno(pDisciplina As %Integer, pAluno As %String)
+{
+    &sql( INSERT INTO Faculdade.ClassAluno VALUES (:pDiciplina, :pAluno))
+}
+
 Query QueryByDisciplinaName(pDiciplina As %String) As %SQLQuery [ SqlProc ]
 {
     SELECT ClassAluno.name As aluno, ClassDisciplina.name As materia
@@ -23,21 +28,21 @@ Query ViewAllDisciplina() As %SQLQuery [ SqlProc ]
 {
     SELECT ClassAluno.ID As ID, ClassAluno.name As aluno, ClassDisciplina.name As materia, Classprofessor.Name As professor
     from Faculdade.ClassAluno, Faculdade.ClassDisciplina, Faculdade.Classprofessor
-    WHERE ClassAluno.Disciplina = ClassDisciplina.ID
+    WHERE ClassAluno.Disciplina = ClassDisciplina.ID and Classprofessor.ID = ClassDisciplina.Professor
 }
 
 Query QueryDisciplinaByAluno(pNome As %String) As %SQLQuery [ SqlProc ]
 {
     SELECT ClassAluno.ID As id, ClassAluno.name As aluno, ClassDisciplina.name As materia
     FROM Faculdade.ClassAluno, Faculdade.ClassDisciplina
-    WHERE ClassAluno.name = :pNome
+    WHERE ClassAluno.name = :pNome and ClassAluno.Disciplina = ClassDisciplina.ID
 }
 
 Query QueryDisciplinaById(pId As %Integer) As %SQLQuery [ SqlProc ]
 {
     SELECT ClassAluno.ID As id, ClassAluno.name As aluno, ClassDisciplina.name As materia
     FROM Faculdade.ClassAluno, Faculdade.ClassDisciplina
-    WHERE ClassAluno.ID = :pId
+    WHERE ClassAluno.ID = :pId and ClassAluno.Disciplina = ClassDisciplina.ID
 }
 
 Storage Default

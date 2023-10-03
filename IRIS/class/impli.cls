@@ -12,10 +12,18 @@ Parameter ExposeServerExceptions = 0;
 ///     body, Objeto aluno precisa ser adicionado no portal<br/>
 ClassMethod addAluno(body As %DynamicObject) As %DynamicObject
 {
-    //(Place business logic here)
-    //Do ..%SetStatusCode(<HTTP_status_code>)
-    //Do ..%SetHeader(<name>,<value>)
-    //Quit (Place response here) ; response may be a string, stream or dynamic object
+    set auxD = body.%Get("Disciplina")
+    set auxA = body.%Get("name")
+
+    set buscaDisciplina = ##Class(ClassDisciplina).%OpenId(auxD)
+    set novoAluno = ##Class(ClassAluno).%New()
+    set novoAluno.name = auxA
+    set novoAluno.Disciplina = buscaDisciplina
+    do novoAluno.%Save()
+
+    do ..%SetHeader("Content-Type", "application/json")
+    do ..%SetStatusCode("200")
+    Quit {"Message": "Sucesso"}
 }
 
 /// Dá um update em aluno<br/>
@@ -23,10 +31,21 @@ ClassMethod addAluno(body As %DynamicObject) As %DynamicObject
 ///     body, Objeto aluno precisa ser atualizado no portal<br/>
 ClassMethod UpdateAluno(body As %DynamicObject) As %DynamicObject
 {
-    //(Place business logic here)
-    //Do ..%SetStatusCode(<HTTP_status_code>)
-    //Do ..%SetHeader(<name>,<value>)
-    //Quit (Place response here) ; response may be a string, stream or dynamic object
+    
+    set idAluno = body.%Get("ID")
+    set novoAlunoNome = body.%Get("name")
+    set novoAlunoDisciplina = body.%Get("Disciplina")
+
+    set buscaAluno = ##Class(ClassAluno).%OpenId(idAluno)
+    set buscaDisciplina = ##Class(ClassDisciplina).%OpenId(novoAlunoDisciplina)
+
+    set buscaAluno.name = novoAlunoNome
+    set buscaAluno.Disciplina = buscaDisciplina
+    do buscaAluno.%Save()
+
+    do ..%SetHeader("Content-Type", "application/json")
+    do ..%SetStatusCode("200")
+    Quit {"Message": "Sucesso"}
 }
 
 /// Pega o aluno pelo id<br/>
