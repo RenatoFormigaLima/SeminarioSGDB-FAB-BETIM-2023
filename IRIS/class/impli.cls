@@ -154,20 +154,22 @@ ClassMethod findAllProfessores() As %DynamicObject
     set statement = ##class(%SQL.Statement).%New()
     set status = statement.%PrepareClassQuery("Faculdade.Classprofessor","professores")
     set resp = ##class(%DynamicObject).%New()
-
+    if $$$ISERR(status)
+    {
+        do ..%SetHeader("Content-Type", "application/json")
+        do ..%SetStatusCode("500")
+        Quit resp
+    }
     set result = statement.%Execute()
     if result.%SQLCode >= 0{
         while result.%Next(){
-            set resp = resp + result
+            do resp.%Set("ID"_result.%Get("ID"), result.%Get("ID"))
+            do resp.%Set("Name"_result.%Get("ID"), result.%Get("Name"))
         }
     }
     do ..%SetStatusCode("200")
     do ..%SetHeader("Content-Type", "application/json")
-    Quit resp.%ToJSON()
-    //(Place business logic here)
-    //Do ..%SetStatusCode(<HTTP_status_code>)
-    //Do ..%SetHeader(<name>,<value>)
-    //Quit (Place response here) ; response may be a string, stream or dynamic object
+    Quit resp
 }
 
 }

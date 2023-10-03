@@ -4,7 +4,7 @@ Class Faculdade.Classprofessor Extends %Persistent
 /// Description
 Property Name As %String [ Required ];
 
-Query professores() As %SQLQuery [ SqlView ]
+Query professores() As %SQLQuery [ SqlProc ]
 {
     SELECT * FROM Faculdade.Classprofessor
 }
