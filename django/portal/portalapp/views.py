@@ -4,12 +4,12 @@ import json
 from . import models
 import requests
 def login(request):
-    return render(request,'home.html')
+    return render(request,'login.html')
 
 
 
 def home(request):
-    return HttpResponse("Hello World!")
+    return HttpResponse('home.html')
 
 
 
