@@ -4,7 +4,7 @@ import json
 from . import models
 import requests
 def login(request):
-    return render(request,'login.html')
+    return render(request,'home.html')
 
 
 
