@@ -12,7 +12,7 @@ Esse MVP foi desenvolvido utilizando o framework Django.
 - [X] Documentação swagger openAPI2.0
 - [X] Modelagem
 - [X] Construção da API
-- [ ] Conexão entre aplicação e API
+- [X] Conexão entre aplicação e API
 - [ ] Front-end
 
 - Modelagem do banco:
