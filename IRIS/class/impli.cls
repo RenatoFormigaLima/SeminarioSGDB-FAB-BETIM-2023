@@ -297,16 +297,21 @@ ClassMethod findAllAlunos() As %DynamicObject
         do ..%SetStatusCode("500")
         Quit resp
     }
+    set aux = {}
     set result = statement.%Execute()
+    set i = 0
     if result.%SQLCode >= 0{
         while result.%Next(){
-            do resp.%Set("aluno"_result.%Get("ID"), result.%Get("aluno"))
-            do resp.%Set("materia"_result.%Get("ID"), result.%Get("materia"))
-            do resp.%Set("professor"_result.%Get("ID"), result.%Get("professor"))
+            do resp.%Set("aluno", result.%Get("aluno"))
+            do resp.%Set("materia", result.%Get("materia"))
+            do resp.%Set("professor", result.%Get("professor"))
+            do aux.%Set(i, resp)
+            set resp = {}
+            set i = i + 1
         }
     }
     do ..%SetStatusCode("200")
-    Quit resp
+    Quit aux
 }
 
 /// Pega todos os professores
